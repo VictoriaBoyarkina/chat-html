@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Чат</title>
+    <link rel="icon" href="../assets/img/koala-icon.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="main.bundle.js"></script></head>
+  <body>
+    <header>
+      <nav class="navigation">
+        <div class="container">
+          <div class="navigation__left">
+            <img
+              class="navigation__icon"
+              src="../assets/img/koala-icon.svg"
+              alt="logo"
+            />
+            <span class="navigation__username" id="userName"></span>
+          </div>
+          <div class="navigation__right" id="avatar">
+            <button class="btn-small" id="logout">Выйти</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="chat">
+      <div class="container chat__container">
+        <div class="chat__users-container">
+          <div class="chat__users-title">
+            <span class="chat__users-status">Пользователи в сети:</span>
+          </div>
+          <ul class="chat__users-list scrollbar" id="users-box"></ul>
+        </div>
+        <div class="chat__messages-container">
+          <div class="chat__messages-box" id="messages-box"></div>
+          <div class="chat__form-container">
+            <form class="chat__form" id="messages-form">
+              <input type="file" id="file-input" />
+              <label class="chat__file-input-label" for="file-input"
+                ><img
+                  class="chat__attach-icon"
+                  src="../assets/img/paperclip-icon.svg"
+                  alt="attach-icon"
+                /><span class="chat__text-invisible">Прикрепить</span></label
+              ><input
+                id="messages-input"
+                type="text"
+                name="messages"
+                aria-label="Новое сообщение"
+                placeholder="Напишите сообщение..."
+              />
+              <button type="submit">
+                <img
+                  class="chat__send-icon"
+                  src="../assets/img/send-icon.svg"
+                  alt="send-icon"
+                /><span class="chat__text-invisible">Отправить</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="../js/main.js"></script>
+</html>
