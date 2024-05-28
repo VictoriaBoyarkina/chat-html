@@ -24,14 +24,13 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "chat",
-      template: "./pages/chat.html",
-      chunks: ["main"], // Include only the main bundle
-    }),
-    new HtmlWebpackPlugin({
       filename: "login",
       template: "./pages/login.html",
       chunks: ["login"], // Include only the login bundle
+    }),
+    new HtmlWebpackPlugin({
+      template: "./pages/chat.html",
+      chunks: ["main"], // Include only the main bundle
     }),
     new Dotenv(),
   ],
@@ -43,5 +42,5 @@ module.exports = {
     open: true, // Автоматически открывать браузер
   },
 
-  mode: "development", // Режим сборки
+  mode: "production", // Режим сборки
 };

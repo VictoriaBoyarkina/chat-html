@@ -6,6 +6,7 @@ import addMessage from "./functions/addMessage";
 import uniqid from "uniqid";
 import "toastify-js/src/toastify.css";
 import Toastify from "toastify-js";
+import "hystModal-0.4/dist/hystmodal.min.css";
 
 //Create parser
 const parser = new DOMParser();

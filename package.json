@@ -6,6 +6,7 @@
     "az": "github:VictoriaBoyarkina/Az.js",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "graph-modal": "github:VictoriaBoyarkina/graph-modal",
     "socket.io": "^4.7.5"
   },
   "scripts": {

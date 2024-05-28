@@ -1,8 +1,14 @@
 import loadImage from "./loadImage";
-
-const parser = new DOMParser();
+import HystModal from "hystModal-0.4"
 
 export default async function addMessage(message, user, container) {
+  const parser = new DOMParser();
+
+  const myModal = new HystModal({
+    linkAttributeName: "data-hystmodal",
+    // настройки (не обязательно), см. API
+});
+
   return new Promise(async (resolve) => {
     // Check if it's a current user message
     const currentUserMessage = message.userId === user.id;
@@ -47,6 +53,17 @@ export default async function addMessage(message, user, container) {
       const img = await fetchImage(message.img);
       if (img) {
         img.classList.add("message-img");
+        img.setAttribute('data-hystmodal', '#myModal');
+        img.addEventListener('click', () => {
+          const modalContainer = document.querySelector('.hystmodal__window');
+          if (modalContainer.children.length > 1) {
+            while (modalContainer.children.length > 1) {
+              modalContainer.removeChild(modalContainer.lastChild);
+            }
+          }
+          const clone = img.cloneNode(true);
+          modalContainer.appendChild(clone);
+        })
         div.appendChild(img);
       }
     }

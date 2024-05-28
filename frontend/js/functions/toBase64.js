@@ -3,7 +3,7 @@ import Compressor from "compressorjs";
 export default function compressAndConvertToBase64(file) {
   return new Promise((resolve, reject) => {
     new Compressor(file, {
-      quality: 0.6,
+      quality: 1,
       maxWidth: 800,
       maxHeight: 800,
       success(result) {
