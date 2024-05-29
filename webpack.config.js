@@ -4,7 +4,6 @@ const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: {
-    login: "./js/login.js",
     main: "./js/main.js",
   }, // Точка входа для сборки проекта
 
@@ -19,18 +18,39 @@ module.exports = {
         test: /\.css$/, // Регулярное выражение для обработки файлов с расширением .css
         use: ["style-loader", "css-loader"], // Загрузчики, используемые для обработки CSS-файлов
       },
+      {
+        test: /\.html$/, // Регулярное выражение для обработки файлов с расширением .css
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "[name].[ext]",
+            },
+          },
+        ],
+        exclude: path.resolve(__dirname, 'pages/index.html'),
+      },
+      {
+        test: /\.(jpg|png|svg)$/, // Регулярное выражение для обработки файлов с расширением .css
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: "[name].[ext]",
+              outputPath: "img/",
+              publicPath: "img/",
+            },
+          },
+        ],
+        exclude: path.resolve(__dirname, 'pages/index.html'),
+      },
     ],
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "login",
-      template: "./pages/login.html",
-      chunks: ["login"], // Include only the login bundle
-    }),
-    new HtmlWebpackPlugin({
-      template: "./pages/chat.html",
-      chunks: ["main"], // Include only the main bundle
+      filename: "index.html",
+      template: "./pages/index.html",
     }),
     new Dotenv(),
   ],

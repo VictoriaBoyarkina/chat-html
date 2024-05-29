@@ -3,10 +3,13 @@ import previewImage from "./functions/previewImage";
 import compressAndConvertToBase64 from "./functions/toBase64";
 import addUser from "./functions/addUser";
 import addMessage from "./functions/addMessage";
-import uniqid from "uniqid";
-import "toastify-js/src/toastify.css";
-import Toastify from "toastify-js";
 import "hystModal-0.4/dist/hystmodal.min.css";
+import getUserName from "./functions/getUserName.js";
+import getAvatar from "./functions/getAvatar.js";
+import uniqid from "uniqid";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+import "../pages/login.html";
 
 //Create parser
 const parser = new DOMParser();
@@ -16,12 +19,56 @@ const user = localStorage.getItem("userId")
   ? JSON.parse(localStorage.getItem("userId"))
   : null;
 
+console.log(user);
+console.log(window.location.pathname);
+
+// If a user logged in, redirect him to chat
+if (user && window.location.pathname === "/login") {
+  window.location.href = "/";
+}
+
+// Login button
+const loginButton = document.getElementById("login");
+if (loginButton) {
+  loginButton.addEventListener("click", async () => {
+    try {
+      const userName = await getUserName();
+      const avatar = await getAvatar(userName);
+      const user = {
+        userName,
+        avatar,
+        id: uniqid(),
+      };
+      localStorage.setItem("userId", JSON.stringify(user));
+      window.location.href = "/";
+    } catch (e) {
+      if (e.message === "Network Error") {
+        Toastify({
+          text: "Проблемы с интернетом",
+          className: "info",
+          style: {
+            background: "#E11616",
+          },
+        }).showToast();
+      } else {
+        Toastify({
+          text: "Для вас не нашлось подходящего имени :(",
+          className: "info",
+          style: {
+            background: "#E11616",
+          },
+        }).showToast();
+      }
+    }
+  });
+}
+
 // If not logged in redirect to login page
-if (!user) {
+if (!user && window.location.pathname === "/") {
   window.location.href = "/login";
 } else {
   // Initialize ockets
-  let socket = io("http://localhost:3000");
+  let socket = io("https://zuzex-server-a5gh.onrender.com");
 
   // Send user
   socket.emit("user joined", user);
@@ -163,6 +210,7 @@ if (!user) {
 
   //Logout button
   const logoutBtn = document.getElementById("logout");
+
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       localStorage.clear();
